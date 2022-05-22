@@ -16,9 +16,10 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - s3:*
+        - s3:GetObject
+        - s3:PutObject
       Resource:
-        - arn:aws:s3:::${env:S3_BUCKET_NAME}/*
+        - arn:aws:s3:::${env:S3_BUCKET_NAME}/jl8-updater/*
 
   environment:
     SENDGRID_API_KEY: ${env:SENDGRID_API_KEY}

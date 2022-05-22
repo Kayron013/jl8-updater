@@ -1,4 +1,3 @@
-import { sendComicEmail } from './email';
 import { sendComicText } from './text';
 import { getLatestComic } from './tumblr';
 import { uploadImages } from './imgur';
@@ -14,9 +13,10 @@ export const checkLatestAndNotify = async (): Promise<boolean> => {
 
   // Uploading images to another host because Tumblr sometimes returns the image embedded in a webpage.
   const imgUrls = await uploadImages(latestComic.images);
+
+  // prettier-ignore
   await Promise.all([
     setLastReadComic(latestComic),
-    sendComicEmail(latestComic.title, imgUrls),
     sendComicText(latestComic.title, imgUrls),
   ]);
 
