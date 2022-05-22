@@ -1,7 +1,7 @@
 {
   "name": "jl8-updater",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sends email and text with latest JL8 comic strips.",
   "main": "index.js",
   "scripts": {
     "test": "tsnd test",
