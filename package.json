@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/index.js",
+    "build": "tsc",
     "dev": "tsnd src/index.ts"
   },
   "keywords": [],
@@ -16,8 +17,6 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "form-data": "^4.0.0",
-    "nodemailer": "^6.7.5",
-    "puppeteer": "^14.1.1",
     "tumblr.js": "^3.0.0",
     "twilio": "^3.77.1"
   },
