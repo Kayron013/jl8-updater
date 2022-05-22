@@ -1,0 +1,43 @@
+service: jl8-notifier
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-west-1
+  stage: dev
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource:
+        - arn:aws:s3:::${env:S3_BUCKET_NAME}/*
+
+  environment:
+    SENDGRID_API_KEY: ${env:SENDGRID_API_KEY}
+    EMAIL_ADDRESS: ${env:EMAIL_ADDRESS}
+    TWILIO_ACCOUNT_SID: ${env:TWILIO_ACCOUNT_SID}
+    TWILIO_AUTH_TOKEN: ${env:TWILIO_AUTH_TOKEN}
+    FROM_NUMBER: ${env:FROM_NUMBER}
+    TO_NUMBER: ${env:TO_NUMBER}
+    TUMBLR_CONSUMER_KEY: ${env:TUMBLR_CONSUMER_KEY}
+    TUMBLR_CONSUMER_SECRET: ${env:TUMBLR_CONSUMER_SECRET}
+    IMGUR_CLIENT_ID: ${env:IMGUR_CLIENT_ID}
+    IMGUR_CLIENT_SECRET: ${env:IMGUR_CLIENT_SECRET}
+    S3_BUCKET_NAME: ${env:S3_BUCKET_NAME}
+    S3_BUCKET_KEY: ${env:S3_BUCKET_KEY}
+
+functions:
+  cronHandler:
+    handler: handler.run
+    timeout: 10
+    events:
+      # Invoke Lambda function every day at 6:00pm PDT (UTC-7)
+      - schedule: cron(0 1 ? * * *)

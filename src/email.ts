@@ -3,19 +3,22 @@ import env from './env';
 
 mail.setApiKey(env.SENDGRID_API_KEY);
 
-export const sendComicEmail = async (comicImages: string[]): Promise<void> => {
+export const sendComicEmail = async (title: string, comicImages: string[]): Promise<void> => {
   await mail
     .send({
       to: env.EMAIL_ADDRESS,
       from: env.EMAIL_ADDRESS,
-      subject: 'New Comic',
-      html: imagesToHtml(comicImages),
+      subject: title,
+      html: generateHTML(title, comicImages),
     })
-    .then(([res, body]) => {
-      console.log({ res, body });
+    .catch(err => {
+      console.error(err.response.data);
+      throw 'Error sending email';
     });
 };
 
-const imagesToHtml = (images: string[]): string => {
-  return images.map(img => `<div><img src="${img}"></div>`).join('\n');
+const generateHTML = (title: string, images: string[]): string => {
+  let html = `<h2>${title}</h2>\n`;
+  html += images.map(img => `<div><img src="${img}"></div>`).join('\n');
+  return html;
 };
