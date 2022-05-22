@@ -1,4 +1,4 @@
-service: jl8-notifier
+service: jl8-updater
 
 frameworkVersion: '3'
 
